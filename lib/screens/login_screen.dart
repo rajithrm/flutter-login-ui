@@ -1,22 +1,40 @@
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  void loginAction() {
+    print(emailController.text);
+    print(passwordController.text);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blueGrey,
       body: Padding(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
+
+            const Text(
               "Login",
               style: TextStyle(
                 color: Colors.white,
@@ -24,38 +42,41 @@ class LoginScreen extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 50),
+
+            const SizedBox(height: 50),
+
             TextField(
               controller: emailController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: "Email",
-                enabledBorder: OutlineInputBorder(),
+                border: OutlineInputBorder(),
               ),
             ),
 
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
 
             TextField(
               controller: passwordController,
               obscureText: true,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: "Password",
                 border: OutlineInputBorder(),
               ),
             ),
 
-            SizedBox(height: 70),
+            const SizedBox(height: 70),
 
             SizedBox(
               width: 200,
               child: ElevatedButton(
-                onPressed: () {
-                  print(emailController.text);
-                  print(passwordController.text);
-                },
-                child: Text("Login", style: TextStyle(color: Colors.black)),
+                onPressed: loginAction,
+                child: const Text(
+                  "Login",
+                  style: TextStyle(color: Colors.black),
+                ),
               ),
             ),
+
           ],
         ),
       ),
