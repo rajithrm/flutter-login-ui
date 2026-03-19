@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login_page/screens/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -27,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
         isLoading = true;
       });
 
-      await Future.delayed(const Duration(seconds: 2)); 
+      await Future.delayed(const Duration(seconds: 2));
 
       setState(() {
         isLoading = false;
@@ -36,6 +37,11 @@ class _LoginScreenState extends State<LoginScreen> {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(const SnackBar(content: Text("Login Success (Demo)")));
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
+      );
     }
   }
 
@@ -93,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   labelText: "Password",
                   border: OutlineInputBorder(),
                 ),
-                validator: (value) { 
+                validator: (value) {
                   if (value == null || value.isEmpty) {
                     return "Please enter password";
                   }
