@@ -10,6 +10,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
 
+  bool isLoading = false;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -20,10 +21,17 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  void loginAction() {
+  void loginAction() async {
     if (_formKey.currentState!.validate()) {
-      print(emailController.text);
-      print(passwordController.text);
+      setState(() {
+        isLoading = true;
+      });
+
+      await Future.delayed(const Duration(seconds: 2)); 
+
+      setState(() {
+        isLoading = false;
+      });
 
       ScaffoldMessenger.of(
         context,
@@ -85,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   labelText: "Password",
                   border: OutlineInputBorder(),
                 ),
-                validator: (value) {
+                validator: (value) { 
                   if (value == null || value.isEmpty) {
                     return "Please enter password";
                   }
@@ -111,11 +119,17 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 width: 200,
                 child: ElevatedButton(
-                  onPressed: loginAction,
-                  child: const Text(
-                    "Login",
-                    style: TextStyle(color: Colors.black),
-                  ),
+                  onPressed: isLoading ? null : loginAction,
+                  child: isLoading
+                      ? const SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        )
+                      : const Text(
+                          "Login",
+                          style: TextStyle(color: Colors.black),
+                        ),
                 ),
               ),
             ],
