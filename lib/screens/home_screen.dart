@@ -9,16 +9,14 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Home"),
-        backgroundColor: Colors.blueGrey,
+        backgroundColor: const Color.fromARGB(255, 105, 183, 222),
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const LoginScreen(),
-                ),
+                MaterialPageRoute(builder: (context) => const LoginScreen()),
               );
             },
           ),
@@ -29,21 +27,13 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const [
-
-            Icon(
-              Icons.home,
-              size: 80,
-              color: Colors.blueGrey,
-            ),
+            Icon(Icons.home, size: 80, color: Colors.blueGrey),
 
             SizedBox(height: 20),
 
             Text(
               "Welcome to Home Screen",
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
 
             SizedBox(height: 10),
@@ -52,7 +42,6 @@ class HomeScreen extends StatelessWidget {
               "You have successfully logged in",
               style: TextStyle(fontSize: 16),
             ),
-
           ],
         ),
       ),
