@@ -78,7 +78,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
                 const SizedBox(height: 40),
 
-                // Name
+               
                 TextFormField(
                   controller: nameController,
                   decoration: const InputDecoration(
@@ -95,7 +95,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
                 const SizedBox(height: 20),
 
-                // Email
+              
                 TextFormField(
                   controller: emailController,
                   decoration: const InputDecoration(
@@ -121,7 +121,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
                 const SizedBox(height: 20),
 
-                // Password
+                
                 TextFormField(
                   controller: passwordController,
                   obscureText: !isPasswordVisible,
@@ -164,7 +164,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
                 const SizedBox(height: 20),
 
-                // Confirm Password
+                
                 TextFormField(
                   controller: confirmPasswordController,
                   obscureText: !isConfirmPasswordVisible,
@@ -218,7 +218,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
                 const SizedBox(height: 20),
 
-                // Navigate to Login
+               
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

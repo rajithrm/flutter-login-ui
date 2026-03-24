@@ -8,7 +8,11 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Home"),
+        centerTitle: true,
+        title: const Text(
+          "Home",
+          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 26),
+        ),
         backgroundColor: const Color.fromARGB(255, 105, 183, 222),
         actions: [
           IconButton(
@@ -27,7 +31,11 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const [
-            Icon(Icons.home, size: 80, color: Colors.blueGrey),
+            Icon(
+              Icons.home,
+              size: 80,
+              color: Color.fromARGB(255, 105, 183, 222),
+            ),
 
             SizedBox(height: 20),
 
@@ -40,7 +48,7 @@ class HomeScreen extends StatelessWidget {
 
             Text(
               "You have successfully logged in",
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
             ),
           ],
         ),
