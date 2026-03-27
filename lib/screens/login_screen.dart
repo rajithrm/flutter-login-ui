@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login_demo/screens/home_screen.dart';
 import 'package:flutter_login_demo/screens/signup_screen.dart';
+import 'package:flutter_login_demo/services/api_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -25,24 +26,41 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void loginAction() async {
     if (_formKey.currentState!.validate()) {
+      FocusScope.of(context).unfocus();
+
       setState(() {
         isLoading = true;
       });
 
-      await Future.delayed(const Duration(seconds: 2));
+      try {
+        final api = ApiService();
+
+        final response = await api.login(
+          emailController.text.trim(),
+          passwordController.text.trim(),
+        );
+
+        if (!mounted) return;
+
+        if (response != null) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(const SnackBar(content: Text("Login Successful")));
+
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const HomeScreen()),
+          );
+        }
+      } catch (e) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(e.toString().replaceAll("Exception:", ""))));
+      }
 
       setState(() {
         isLoading = false;
       });
-
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text("Login Success (Demo)")));
-
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
-      );
     }
   }
 
@@ -103,18 +121,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return "Please enter password";
-                  }
-
-                  if (value.length < 6) {
-                    return "Password must be at least 6 characters";
-                  }
-
-                  if (!RegExp(r'[A-Z]').hasMatch(value)) {
-                    return "Must contain one uppercase letter";
-                  }
-
-                  if (!RegExp(r'[0-9]').hasMatch(value)) {
-                    return "Must contain one number";
                   }
 
                   return null;
