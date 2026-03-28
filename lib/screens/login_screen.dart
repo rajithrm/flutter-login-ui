@@ -42,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
         if (!mounted) return;
 
-        if (response != null) {
+        if (response["token"] != null) {
           ScaffoldMessenger.of(
             context,
           ).showSnackBar(const SnackBar(content: Text("Login Successful")));

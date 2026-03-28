@@ -18,4 +18,21 @@ class ApiService {
       throw "Login failed";
     }
   }
+
+  Future<Map<String, dynamic>> signup(
+    String name,
+    String email,
+    String password,
+  ) async {
+    try {
+      final response = await _dio.post(
+        "/api/signup",
+        data: {"name": name, "email": email, "password": password},
+      );
+
+      return response.data;
+    } on DioException catch (e) {
+      throw e.response?.data?["message"] ?? "Signup failed";
+    }
+  }
 }

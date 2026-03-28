@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_login_demo/services/api_service.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -35,17 +36,31 @@ class _SignupScreenState extends State<SignupScreen> {
         isLoading = true;
       });
 
-      await Future.delayed(const Duration(seconds: 2));
+      try {
+        final api = ApiService();
+
+        final response = await api.signup(
+          nameController.text.trim(),
+          emailController.text.trim(),
+          passwordController.text.trim(),
+        );
+
+        if (!mounted) return;
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(response["message"] ?? "Signup Successful")),
+        );
+
+        Navigator.pop(context);
+      } catch (e) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(e.toString())));
+      }
 
       setState(() {
         isLoading = false;
       });
-
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text("Signup Successful (Demo)")));
-
-      Navigator.pop(context);
     }
   }
 
@@ -78,7 +93,6 @@ class _SignupScreenState extends State<SignupScreen> {
 
                 const SizedBox(height: 40),
 
-               
                 TextFormField(
                   controller: nameController,
                   decoration: const InputDecoration(
@@ -95,7 +109,6 @@ class _SignupScreenState extends State<SignupScreen> {
 
                 const SizedBox(height: 20),
 
-              
                 TextFormField(
                   controller: emailController,
                   decoration: const InputDecoration(
@@ -121,7 +134,6 @@ class _SignupScreenState extends State<SignupScreen> {
 
                 const SizedBox(height: 20),
 
-                
                 TextFormField(
                   controller: passwordController,
                   obscureText: !isPasswordVisible,
@@ -164,7 +176,6 @@ class _SignupScreenState extends State<SignupScreen> {
 
                 const SizedBox(height: 20),
 
-                
                 TextFormField(
                   controller: confirmPasswordController,
                   obscureText: !isConfirmPasswordVisible,
@@ -218,7 +229,6 @@ class _SignupScreenState extends State<SignupScreen> {
 
                 const SizedBox(height: 20),
 
-               
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
